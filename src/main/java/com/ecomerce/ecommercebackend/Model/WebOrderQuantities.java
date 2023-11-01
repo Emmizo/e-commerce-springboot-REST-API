@@ -1,5 +1,7 @@
 package com.ecomerce.ecommercebackend.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,14 +16,15 @@ public class WebOrderQuantities {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id",nullable = false)
     private Product product;
 
     @Column(name ="quantity", nullable = false)
     private Integer quantity;
 
-    @ManyToOne(optional = false)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name = "order_id",nullable = false)
     private WebOrder order;
 

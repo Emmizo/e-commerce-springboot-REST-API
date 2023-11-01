@@ -1,5 +1,7 @@
 package com.ecomerce.ecommercebackend.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,10 +22,13 @@ public class Address {
     private String city;
     @Column(name = "country", length = 75)
     private String country;
-    @ManyToOne
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id",nullable = false)
     private LocalUser user;
-    @OneToOne(mappedBy = "address",cascade = CascadeType.REMOVE,optional = false)
-    private WebOrder order;
+
+    // @OneToOne(mappedBy = "address",cascade = CascadeType.REMOVE,optional = false)
+    // private WebOrder order;
 
 }

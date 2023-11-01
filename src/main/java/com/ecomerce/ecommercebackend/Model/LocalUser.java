@@ -3,6 +3,8 @@ package com.ecomerce.ecommercebackend.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +25,7 @@ public class LocalUser {
     @Column(name = "email", nullable = false, length=255)
     private String email;
 
+    @JsonIgnore
     @Column(name = "password", nullable = false, length=1000)
     private String password;
 
@@ -32,10 +35,12 @@ public class LocalUser {
     @Column(name = "lastName", nullable = false)
     private String lastName;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonIgnore
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();
     
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<WebOrder> orders = new ArrayList<>();
+    // @JsonIgnore
+    // @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    // private List<WebOrder> orders = new ArrayList<>();
 
 }

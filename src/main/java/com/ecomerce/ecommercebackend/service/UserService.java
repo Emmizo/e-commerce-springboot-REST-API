@@ -46,6 +46,10 @@ public class UserService {
         if(opUser.isPresent()) {
             LocalUser user = opUser.get();
             if(encryptionService.verifyPassword(loginBody.getPassword(), user.getPassword())) {
+
+                jwtService.generateJWT(user);
+                
+                
                 return  jwtService.generateJWT(user);
             }
         }

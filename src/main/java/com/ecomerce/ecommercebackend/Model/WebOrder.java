@@ -3,6 +3,8 @@ package com.ecomerce.ecommercebackend.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,15 +18,17 @@ public class WebOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = false)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name="user_id",nullable = false)
     private LocalUser user;
 
-    @ManyToOne(optional = false)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name="address_id",nullable = false)
     private Address address;
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonIgnore
+    @OneToMany(mappedBy = "order",fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<WebOrderQuantities> quantity = new ArrayList<>();
 
 }

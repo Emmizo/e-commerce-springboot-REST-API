@@ -25,7 +25,7 @@ public class Product {
     @Column(name="price", nullable = false)
     private Double price;
 
-    @OneToOne(mappedBy = "product",cascade = CascadeType.REMOVE,optional = false)
+    @OneToOne(mappedBy = "product",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE,optional = false)
 
     private Inventory inventory;
 
